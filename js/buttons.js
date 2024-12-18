@@ -1,8 +1,7 @@
 import { showCooking, hideCooking, showOrder, hideOrder,
-     hideMenu, showMenu
- } from "./hide.js"
-
- import { menuOrdersPost } from "./API.js"
+     hideMenu, showMenu} from "./hide.js"
+ import { menuOrdersPost } from "./API.js" 
+ import { selectedItems } from "./menuRender.js"
 
 const menuItems = document.querySelectorAll('.menu-item')
 const cartButton = document.querySelector('.cart-button')
@@ -19,20 +18,21 @@ cartButton.addEventListener('click', function(){
 
 moneyButton.addEventListener("click", async function () {
     try {
-        // Prepare the data for the API
-        const orderResponse = await menuOrdersPost();
+        // Get selectedItems from menuRender
+        // You'll need to import selectedItems or pass it through a function
+        const orderResponse = await menuOrdersPost(selectedItems);
         
         console.log("Order successfully placed:", orderResponse);
 
         // Hide cart and show ETA section
-        hideCart();
-        showETA();
+        hideOrder();
+        showCooking();
 
         // Show order confirmation on the ETA page
         const orderIdElement = document.querySelector(".order-id");
         orderIdElement.innerText = `Order ID: ${orderResponse.orderId}`;
 
-        const timeEstimateElement = document.querySelector(".time-estimate");
+        const timeEstimateElement = document.querySelector(".time-left");
         timeEstimateElement.innerText = `ETA: ${orderResponse.eta} minutes`;
 
         // Green button feedback
@@ -40,7 +40,6 @@ moneyButton.addEventListener("click", async function () {
         moneyButton.innerText = "BESTÄLLNING MOTTAGEN!";
     } catch (error) {
         console.error("Failed to place order:", error);
-        alert("Could not place order. Please try again.");
     }
 });
 

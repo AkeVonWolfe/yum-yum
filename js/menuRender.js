@@ -4,7 +4,7 @@ const menuContainer = document.querySelector("#menu-container");
 const wonton = "wonton";
 const drink = "drink";
 const dip = "dip";
-let selectedItems = [];
+export let selectedItems = [];
 
 
 //get the menu items from the API 
@@ -232,6 +232,8 @@ function addItemToOrder(event) {
     }
     return selectedItems; // Return the updated selectedItems array
 }
+
+
 
 
 //  load the menu items

@@ -1,3 +1,5 @@
+
+
 const apiKey = 'yum-ngfeNG1iaq9Q2PJK'
 
 const url = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com'
@@ -49,9 +51,9 @@ entireMenu()
 
 
 function menuOrdersPost(addItemToOrder) {
-  const orderData = {
-    items: addItemToOrder
-      .flatMap((item) => Array(item.quantity).fill(Number(item.id))),
+  const orderData = {items: addItemToOrder
+          .flatMap((item) => Array(item.quantity)
+          .fill(Number(item.id))),
   };
 
   const options = {
@@ -63,7 +65,7 @@ function menuOrdersPost(addItemToOrder) {
     body: JSON.stringify(orderData),
   };
 
-  return fetch(`${url}${tenantId}/orders`, options)
+  return fetch(`${url}/${tenantId}/orders`, options)
     .then((response) => {
       if (!response.ok) {
         return response.text().then((errorResponse) => {
