@@ -4,6 +4,7 @@ const url = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com'
 
 const tenantNamn = "Andreas"
 const tenantId = "k6ja" 
+let wontonItems = [];
 
 // if needed more tenants.
 async function fetchTenant() {
@@ -20,44 +21,71 @@ async function fetchTenant() {
 	console.log('Tenant: ', data)
 }
 
-// fetch entire menu and save in menu variable.
-async function entireMenu(){
-  const options = {
-		headers: {
-			"x-zocom": apiKey
-		}
-	}
-	const response = await fetch(url + '/menu', options)
-	const Menu = await response.json()
-	console.log('Menu:', Menu) 
-   
+// fetch entire menu 
+async function entireMenu() {
+  return fetch(url + '/menu', {
+    method: "GET",
+    headers: {
+      "x-zocom": apiKey,
+      "Content-Type": "application/json",
+    },
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    wontonItems = data.items;
+    return data.items;
+  })
+  .catch(error => {
+    console.log(error);
+    return [];
+  });
 }
 entireMenu()
 
-// take variable loreKeeper and send
+
 async function menuOrdersPost() {
-  const options = {
-    /* method = 'POST'
-    body: json.stringify{ variable with id and count} */
+  const orderData = {
+		items: cartManager
+			.getCartItems()
+			.flatMap((item) => Array(item.quantity).fill(Number(item.id))),
+	};
+	// console.log("placing order", orderData)
+	try {
+		const options = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+        "x-zocom": apiKey,
+			},
+			body: JSON.stringify(orderData),
+		};
 
-  }
-  const response = await fetch(url + '/{tenantID}/orders')
-  const data = await response.json()
+		// console.log("Order data before sending:", JSON.stringify(orderData));
+    const response = await fetch(`${url}${tenantId}/orders`, options);
+
+		if (!response.ok) {
+			const errorResponse = await response.text();
+			console.error("Error response", errorResponse);
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+
+		const data = await response.json();
+		// console.log('Order placed sucsessfully', data);
+		return data;
+	} catch (error) {
+		console.error("Error placing order", error.message);
+		throw error;
+	}
 }
 
-// get the order list
-async function menuOrderGet() {
-  const options = {
-    /* method = 'GET'
-     */
 
-  }
-  const response = await fetch(url + '/{tenantID}/orders')
-  const data = await response.json()
-  
-}
 
-export{ entireMenu}
+export{ entireMenu, menuOrdersPost}
 
 
 

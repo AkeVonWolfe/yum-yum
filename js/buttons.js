@@ -1,8 +1,6 @@
 import { showCooking, hideCooking, showOrder, hideOrder,
-    showOrder, hideOrder,
-    hideMenu,
-    showMenu
- } from "./hide"
+     hideMenu, showMenu
+ } from "./hide.js"
 
 const menuItems = document.querySelectorAll('.menu-item')
 const cartButton = document.querySelector('.cart-button')
@@ -23,33 +21,21 @@ moneyButton.addEventListener('click', function(){
 })
 
 
-openReceiptButton.addEventListener('click', function() {
+/* openReceiptButton.addEventListener('click', function() {
     receiptDialog.show()
     // need to call api for order with loreKeeper storing orders
-})
+}) */
 
 
 /* receiptDialog.addEventListener('click', function(){
     event.stopPropagation()
 }) */
 
-restartbutton.addEventListener('click', function(){
+/* restartbutton.addEventListener('click', function(){
    hideCooking()
    showMenu()
    //need to clear cart and reset   
-})
+}) */
 
-// need button foreach item clicked on menu and either save
-
-menuItems.forEach(item => {
-    item.addEventListener('click', function() {
-// these in variable to later send the GET /orders
-  loreKeeper =+ this.item.id // need to check how this work again
-// or bake in the GET/order in the click function
-     })
-})
-
-// variable to store order id and amount 
-let loreKeeper = {"items":[1]}
 
 

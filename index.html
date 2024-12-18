@@ -6,58 +6,75 @@
     <title>YUM YUM </title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="/js/API.js"></script>
+	<script type="module" src="/js/menuRender.js"></script>
+	<script type="module" src="/js/buttons.js"></script>
 </head>
 <body>
-    <section class="menu-page">
-        <div class="header">
-            <h1>MENY</h1>
-            <div class="cart-icon">
-            </div>
-        </div>
-        <div class="menu-items">
-            <div class="menu-item">
-                <h2>KARLSTAD<span class="dots"></span>9 SEK</h2>
-                <p>kantarell, schalottenlök, morot, bladpersilja</p>
-            </div>
-            <div class="menu-item">
-                <h2>BANGKOK<span class="dots"></span>9 SEK</h2>
-                <p>morot, salladslök, chili, kokos, lime, koriander</p>
-            </div>
-            <div class="menu-item">
-                <h2>HO CHI MINH<span class="dots"></span>9 SEK</h2>
-                <p>kål, salladslök, chili, vitlök, ingefära, tofu</p>
-            </div>
-            <div class="menu-item">
-                <h2>PARIS<span class="dots"></span>9 SEK</h2>
-                <p>kål, chèvre, honung, basilika, valnötspasta</p>
-            </div>
-            <div class="menu-item">
-                <h2>OAXACA<span class="dots"></span>9 SEK</h2>
-                <p>majs, tomat, rostade ärtor, vitlök, lime</p>
-            </div>
-        </div>
-        <div class="section">
-            <h2>DIPSÅS<span class="dots"></span>19 SEK</h2>
-            <div class="buttons">
-                <button>sweet chili</button>
-                <button>wonton std</button>
-                <button>sweet & sour</button>
-                <button>hot mango</button>
-                <button>chili mayo</button>
-                <button>guacamole</button>
-            </div>
-        </div>
-        <div class="section">
-            <h2>DRICKA<span class="dots"></span>19 SEK</h2>
-            <div class="buttons">
-                <button>Fanta Orange</button>
-                <button>Fanta Exotic</button>
-                <button>Coca Cola</button>
-                <button>Sprite</button>
-                <button>LOKA Granatäpple</button>
-                <button>LOKA Citrus</button>
-            </div>
-        </div>
-    </section>
+    <section class="menu"> 
+		<div class="cart-box">
+			<button class="cart-button">
+				<span class="total-items"></span>
+				<img src="img/cart.svg" alt="shopping cart">
+			</button>
+		</div>
+		<h2 id="menu-header">MENY</h2>
+		<div id="menu-container">
+		</div>
+
+		<div class="submenu-container">
+			<div class="submenu-inner">
+				<p class="submenu-header">DIPSÅS</p>
+				<div class="dotted-divider"></div>
+				<p class="submenu-header dip-price"></p>
+			</div>
+			<div class="submenu-selections" data-type="dip">
+			</div>
+		</div>
+		<div class="submenu-container">
+			<div class="submenu-inner">
+				<p class="submenu-header">DRICKA</p>
+				<div class="dotted-divider"></div>
+				<p class="submenu-header drink-price"></p>
+			</div>
+			<div class="submenu-selections" data-type="drink">
+			</div>
+		</div>
+	</section>
+
+	<div id="cart">
+		<div class="icon-container">
+			<button class="cart-return-button">
+				<img src="img/cart.svg" alt="icon for shopping cart" id="cart-icon">
+			</button>
+			</div>
+
+	<div id="cart-inner-container">
+	</div>
+
+	<div class="cart-bottom-container">
+		<div class="price-info">
+			<div class="price-inner">
+				<p class="total-text">TOTALT</p>
+				<p>inkl 20% moms</p>
+			</div>
+			<p class="total-price"></p>
+		</div>
+		<button class="money-button" disabled>VARUKORGEN ÄR TOM!</button>
+	</div>
+</div>
+
+<section id="eta">
+	<div class="eta-img-container">
+		<img src="./img/box-top.png" alt="picture of wonton box" class="wonton-box">
+
+	</div>
+	<h2 class="eta-header"> DINA WONTON TILLAGAS!</h2>
+	<p class="time-estimate">ETA 5 MIN</p>
+	<p class="order-id"></p>
+	<div class="eta-button-container">
+		<button class="eta-buttons new-order">ny beställing</button>
+	</div>
+</section>
+
 </body>
 </html>

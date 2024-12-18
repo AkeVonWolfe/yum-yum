@@ -1,101 +1,157 @@
-* {
-    margin: 0;
-    box-sizing: border-box;
+body{
+	height: 100%;
+	max-width: 600px;
+	margin: auto;
+	background-color: #489078;
+	
 }
 
-body {
-    background-color: #2e7366;
-    color: white;
-    margin: 0;
-    padding: 20px;
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "Fira Sans", sans-serif;
+	font-size: 16px;
+	box-sizing: border-box;
+	
+
 }
 
-.menu-page {
-    max-width: 400px;
-    margin: 0 auto;
+.total-items.display-none{
+	display: none;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.hide{
+	display: none;
 }
 
-h1 {
-    font-size: 2rem;
-    font-weight: bold;
+#menu{
+	display: none;
+	flex-direction: column;
+	background-color: #489078;
+	margin: auto;
+	padding: 1rem;
+	height: 100%;
+    min-height: 100vh;
 }
 
-.cart-icon {
-    position: relative;
-    width: 40px;
-    height: 40px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cart-box{
+	display: flex;
+	height: 6rem;
+	justify-content: right;
+	padding-top: 1rem;
 }
 
-.menu-items .menu-item {
-    background-color: #4a8a7f;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+.cart-button{
+	height: 4rem;
+	width: 4rem;
+	border: none;
+	border-radius: 0.4rem;
+	background-color: white;
+	position: relative;
+	cursor: pointer;
+	
 }
 
-.menu-item h2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+
+.total-items{
+	background-color: white;
+	color: white;
+	font-size: 0.8rem;
+	border-radius: 100%;
+	width: 1.5rem;
+	height: 1.5rem;
+	position: absolute;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	top: -0.5rem;
+	right: -0.5rem;
 }
 
-.menu-item p {
-    font-size: 0.9rem;
-    color: #cfe5e0;
+#menu-header{
+	color: white;
+	font-size: 2rem;
+	text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);
 }
 
-.dots {
-    flex-grow: 1;
-    border-bottom: 1px dotted white;
-    margin: 0 10px;
+#menu-container, .submenu-container{
+	border-radius: 0.3rem;
+	margin-bottom: 1rem;
+	background-color: #605858;
 }
 
-.section {
-    margin-top: 20px;
+.menu-item{
+	color: white;
+	padding: 0.8rem;
+	background: 0;
+	border: none;
+	text-align: left;
+	width: 100%;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+	cursor: pointer;
 }
 
-.section h2 {
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.menu-item:hover, .submenu-item:hover{
+	background-color: #353131;
 }
 
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+.menu-item:first-child{
+	border-radius: 0.3rem 0.3rem 0 0;
+}
+.menu-item:last-child{
+	border-radius:0 0 0.3rem 0.3rem;
 }
 
-.buttons button {
-    background-color: #6b8e8a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 0.9rem;
+.menu-item:not(:last-child){
+	border-bottom: dotted 1.5px rgba(255, 255, 255, 0.329);
 }
 
-.buttons button:hover {
-    background-color: #4a8a7f;
+.menu-item-inner, .submenu-inner{
+	display: flex;
+	gap: 0.3rem;
+}
+
+.menu-item-inner *, .submenu-inner *{
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-bottom: 0.4rem;
+	color: white;
+	text-transform: uppercase;
+}
+
+.ingredients{
+	font-size: 14px;
+}
+
+.dotted-divider{
+	border-bottom: dotted 2px white;
+	flex-grow: 1;
+}
+
+.submenu-item{
+	border: none;
+	color: white;
+	background-color: #898383;
+	padding: 0.5rem;
+	border-radius: 0.4rem;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.submenu-selections{
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.8rem;
+}
+
+.submenu-inner{
+	margin-bottom: 1rem;
+}
+
+.submenu-container{
+	padding: 0.8rem;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
 }
