@@ -48,39 +48,38 @@ async function entireMenu() {
 entireMenu()
 
 
-async function menuOrdersPost() {
+function menuOrdersPost(addItemToOrder) {
   const orderData = {
-		items: cartManager
-			.getCartItems()
-			.flatMap((item) => Array(item.quantity).fill(Number(item.id))),
-	};
-	// console.log("placing order", orderData)
-	try {
-		const options = {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-        "x-zocom": apiKey,
-			},
-			body: JSON.stringify(orderData),
-		};
+    items: addItemToOrder
+      .flatMap((item) => Array(item.quantity).fill(Number(item.id))),
+  };
 
-		// console.log("Order data before sending:", JSON.stringify(orderData));
-    const response = await fetch(`${url}${tenantId}/orders`, options);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-zocom": apiKey,
+    },
+    body: JSON.stringify(orderData),
+  };
 
-		if (!response.ok) {
-			const errorResponse = await response.text();
-			console.error("Error response", errorResponse);
-			throw new Error(`HTTP error! Status: ${response.status}`);
-		}
-
-		const data = await response.json();
-		// console.log('Order placed sucsessfully', data);
-		return data;
-	} catch (error) {
-		console.error("Error placing order", error.message);
-		throw error;
-	}
+  return fetch(`${url}${tenantId}/orders`, options)
+    .then((response) => {
+      if (!response.ok) {
+        return response.text().then((errorResponse) => {
+          console.error("Error", errorResponse);
+          throw new Error(`${response.status}`);
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error(error.message);
+      throw error;
+    });
 }
 
 

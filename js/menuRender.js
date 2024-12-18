@@ -230,6 +230,7 @@ function addItemToOrder(event) {
         console.log("Current cart:", selectedItems);
         renderCartItems(); // Update cart display
     }
+    return selectedItems; // Return the updated selectedItems array
 }
 
 
