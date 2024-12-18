@@ -7,7 +7,7 @@ const cartButton = document.querySelector('.cart-button')
 const moneyButton = document.querySelector('.money-button')
 const receiptDialog = document.querySelector('.receipt-dialog')
 const openReceiptButton = document.querySelector('.open-receipt-button')
-const restartbutton = document.querySelector('.restart-button')
+const restartbutton = document.querySelector('.return-button')
 const cartReturnButton = document.querySelector('.cart-return-button')
 
 cartButton.addEventListener('click', function(){
@@ -18,15 +18,22 @@ cartButton.addEventListener('click', function(){
 moneyButton.addEventListener('click', function(){
     hideOrder()
     showCooking()
-    // delay and green to show it's accepeted
 })
 
 cartReturnButton.addEventListener('click', function(){
     hideOrder()
-    showCooking()
+    showMenu()
 })
 
+restartbutton.addEventListener('click', function(){
+    hideCooking()
+    showMenu()
+})
 
+moneyButton.addEventListener('click', function(){
+    hideOrder()
+    showCooking()
+})
 /* openReceiptButton.addEventListener('click', function() {
     receiptDialog.show()
     // need to call api for order with loreKeeper storing orders
@@ -37,11 +44,7 @@ cartReturnButton.addEventListener('click', function(){
     event.stopPropagation()
 }) */
 
-/* restartbutton.addEventListener('click', function(){
-   hideCooking()
-   showMenu()
-   //need to clear cart and reset   
-}) */
+
 
 
 

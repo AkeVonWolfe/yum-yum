@@ -1,45 +1,34 @@
 
 // mabye change this into style and display none
 function hideMenu(){
-    let menuContainer = document.querySelector('.menu');
-    if (menuContainer) {
-        menuContainer.setAttribute('hidden', true);
-    }
+    let menuContainer = document.querySelector(".menu");
+    if (menuContainer) menuContainer.style.display = "none";
 }
 
 function showMenu(){
-    let menuContainer = document.querySelector('.menu');
-    if (menuContainer) {
-        menuContainer.removeAttribute('hidden');
-    }
+    let menuContainer = document.querySelector(".menu");
+    if (menuContainer) menuContainer.style.display = "block";
 }
 
 function hideOrder(){
-    let orderContainer = document.querySelector('.order-page');
-    if (orderContainer) {
-        orderContainer.setAttribute('hidden', true);
-    }
+    let cartContainer = document.querySelector("#cart");
+    if (cartContainer) cartContainer.style.display = "none";
 }
 
 function showOrder(){
-    let orderContainer = document.querySelector('.order-page');
-    if (orderContainer) {
-        orderContainer.removeAttribute('hidden');
+    let cartContainer = document.querySelector("#cart");
+    if (cartContainer) cartContainer.style.display = "block"; 
     }
-}
 
 function hideCooking(){
-    let himCook = document.querySelector('.cooking-page');
-    if (himCook) {
-        himCook.setAttribute('hidden', true);
+    let etaContainer = document.querySelector("#eta");
+    if (etaContainer) etaContainer.style.display = "none";
     }
-}
 
 function showCooking(){
-    let himCook = document.querySelector('.cooking-page');
-    if (himCook) {
-        himCook.removeAttribute('hidden');
+    let etaContainer = document.querySelector("#eta");
+    if (etaContainer) etaContainer.style.display = "block";
     }
-}
+
 
 export {hideMenu, showMenu, hideOrder , showOrder , hideCooking, showCooking}
