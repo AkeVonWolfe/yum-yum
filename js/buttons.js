@@ -8,6 +8,7 @@ const moneyButton = document.querySelector('.money-button')
 const receiptDialog = document.querySelector('.receipt-dialog')
 const openReceiptButton = document.querySelector('.open-receipt-button')
 const restartbutton = document.querySelector('.restart-button')
+const cartReturnButton = document.querySelector('.cart-return-button')
 
 cartButton.addEventListener('click', function(){
     hideMenu()
@@ -18,6 +19,11 @@ moneyButton.addEventListener('click', function(){
     hideOrder()
     showCooking()
     // delay and green to show it's accepeted
+})
+
+cartReturnButton.addEventListener('click', function(){
+    hideOrder()
+    showCooking()
 })
 
 

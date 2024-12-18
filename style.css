@@ -16,6 +16,7 @@ body{
 
 }
 
+
 .total-items.display-none{
 	display: none;
 }
@@ -38,13 +39,14 @@ body{
 	display: flex;
 	height: 6rem;
 	justify-content: right;
-	padding-top: 1rem;
 }
 
 .cart-button{
 	height: 4rem;
 	width: 4rem;
 	border: none;
+	margin-top: 1rem;
+	margin-right: 1rem;
 	border-radius: 0.4rem;
 	background-color: white;
 	position: relative;
@@ -75,13 +77,16 @@ body{
 	text-shadow: 1px 1.5px 1px rgba(0, 0, 0, 0.911);
 }
 
-#menu-container, .submenu-container{
+#menu-container, .submenu-container, .cart-container{
 	border-radius: 0.3rem;
 	margin-bottom: 1rem;
 	background-color: #605858;
 }
+#cart{
+	background-color: white;
+}
 
-.menu-item{
+.menu-item , .cart-item{
 	color: white;
 	padding: 0.8rem;
 	background: 0;
@@ -93,7 +98,7 @@ body{
 	cursor: pointer;
 }
 
-.menu-item:hover, .submenu-item:hover{
+.menu-item:hover, .submenu-item:hover, .money-button:hover{
 	background-color: #353131;
 }
 
@@ -104,16 +109,16 @@ body{
 	border-radius:0 0 0.3rem 0.3rem;
 }
 
-.menu-item:not(:last-child){
+.menu-item:not(:last-child), .cart-item:not(:last-child){
 	border-bottom: dotted 1.5px rgba(255, 255, 255, 0.329);
 }
 
-.menu-item-inner, .submenu-inner{
+.menu-item-inner, .submenu-inner, .cart-item{
 	display: flex;
 	gap: 0.3rem;
 }
 
-.menu-item-inner *, .submenu-inner *{
+.menu-item-inner *, .submenu-inner *, .cart-item *{
 	font-size: 1.5rem;
 	font-weight: bold;
 	margin-bottom: 0.4rem;
@@ -130,7 +135,7 @@ body{
 	flex-grow: 1;
 }
 
-.submenu-item{
+.submenu-item , .cart-item{
 	border: none;
 	color: white;
 	background-color: #898383;
@@ -154,4 +159,160 @@ body{
 	padding: 0.8rem;
 	padding-bottom: 1rem;
 	padding-top: 1rem;
+}
+.cart-item{
+	padding: 1rem;
+}
+.counter-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.counter-button {
+    background-color: #898383;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 2rem;
+    text-align: center;
+}
+
+.counter-button:hover {
+    background-color: #353131;
+}
+
+.quantity-display {
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+.cart-return-button{
+	background: none;
+	border: 0;
+	margin-top: 1rem;
+	margin-right: 1rem;
+	height: 4rem;
+	width: 4rem;
+	border: 2px solid darkgray;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+.icon-container{
+	display: flex;
+	height: 6rem;
+	justify-content: right;
+}
+
+
+.cart-bottom-container {
+    border-radius: 0.3rem;
+    padding: 1rem;
+	gap : 1rem;
+    display: flex;
+    justify-content: space-between;
+	flex-direction: column;
+}
+
+.price-info {
+	background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    align-items: center;
+}
+
+.price-inner {
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.total-text {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.total-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.money-button {
+	background-color: darkgray;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    padding: 1.8rem;
+	cursor: pointer;
+    
+}
+
+.money-button:disabled {
+    background-color: #353131;
+    cursor: not-allowed;
+}
+
+
+#eta{
+	background-color: lightgray;
+  	flex-direction: column;
+  	padding: 1rem;
+  	align-items: center;
+  	color: white;
+  	gap: 1rem;
+  	height: 100%;
+  	min-height: 100vh;
+  	overflow: hidden;
+}
+.eta-img-container{
+	display: flex;
+	justify-content: center;
+}
+.wonton-box{
+	max-width: 30rem;
+	margin-top: 5rem;
+}
+
+.order-id{
+	text-transform: uppercase;
+}
+
+.eta-header{
+	text-align: center;
+	font-size: 2rem;
+	max-width: 15rem;
+}
+
+.eta-button-container{
+	display: flex;
+	flex-direction: column;
+	margin-top: auto;
+	gap: 1rem;
+	width: 100%;
+}
+
+.eta-buttons{
+	background-color: darkgray;
+	border: none;
+	border-radius: 0.3rem;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: white;
+	padding: 1.5rem;
+	cursor: pointer;
+}
+
+.eta-buttons.receipt{
+	background-color: lightgray;
+	border: 2px solid white;
+	color: white;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911);
 }
