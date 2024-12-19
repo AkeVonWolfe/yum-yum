@@ -14,28 +14,28 @@ const cartReturnButton = document.querySelector('.cart-return-button')
 cartButton.addEventListener('click', function(){
     hideMenu()
     showOrder()
-    document.body.style.backgroundColor = "#f1f0ec"; // change white/gray
+    document.body.style.backgroundColor = "#eeeeee"; //change white/gray
 
 })
-//  money button to place the order, also need to call the api to post the order
+// money button to place the order, also need to call the api to post the order
 moneyButton.addEventListener("click", async function () {
     try {
-        // Get selectedItems from menuRender
+        //get selectedItems from menuRender
         const orderResponse = await menuOrdersPost(selectedItems);
         
         console.log("Order successfully placed:", orderResponse);
 
-        // Hide cart and show ETA section
+        //hide cart and show eta section
         hideOrder();
         showCooking();
         document.body.style.backgroundColor = "#605858"; // change darkgray
 
-        // Show order confirmation on the ETA page
+        //show order confirmation on the eta page
         const orderid = orderResponse.order.id;
         const orderIdElement = document.querySelector(".order-id");
         orderIdElement.innerText = `Order ID: ${orderid}`;
 
-        // Calculate time left until order is ready
+        //calculate time left until order is ready
         const Responsetime = new Date(orderResponse.order.eta);
         const currentTime = new Date();
         const timeDifference = Math.max(0, Responsetime - currentTime);
@@ -49,14 +49,14 @@ moneyButton.addEventListener("click", async function () {
         console.error("Failed to place order:", error);
     }
 });
-// go to menu from cart
+//go to menu from cart
 cartReturnButton.addEventListener('click', function(){
     hideOrder()
     showMenu()
     document.body.style.backgroundColor = "#489078"; // change green
     // need a reset/clear function for the cart
 })
-// go to menu from cooking
+//go to menu from cooking
 restartbutton.addEventListener('click', function(){
     hideCooking()
     showMenu()
@@ -65,31 +65,31 @@ restartbutton.addEventListener('click', function(){
 })
 
 
-// nuke everthing  // mby move this to another file
+//nuke everthing  //mby move this to another file
 function resetOrder() {
-    // Clear the selectedItems array
+    //clear the selectedItems array
     selectedItems.length = 0;
     
-    // Reset the cart counter
+    //reset the cart counter
     const totalCounter = document.querySelector(".total-counter");
     totalCounter.style.display = "none";
     totalCounter.innerText = "0";
     
-    // Reset the cart display
+    //reset the cart display
     const cartContainer = document.querySelector("#cart-container");
     cartContainer.innerHTML = "";
     
-    // Reset the total price
+    //reset the total price
     const totalPriceElement = document.querySelector(".total-price");
     totalPriceElement.innerText = "0 SEK";
     
-    // Reset the money button
+    //reset the money button
     const moneyButton = document.querySelector(".money-button");
     moneyButton.disabled = true;
     moneyButton.innerText = "VARUKORGEN ÄR TOM!";
     moneyButton.style.backgroundColor = "#353131";
     
-    // Reset the order ID and time display
+    //reset the order ID and time display
     const orderIdElement = document.querySelector(".order-id");
     const timeEstimateElement = document.querySelector(".time-left");
     orderIdElement.innerText = "";

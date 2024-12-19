@@ -1,5 +1,5 @@
 
-// mabye change this into style and display none
+//mabye change this into style and display none
 function hideMenu(){
     let menuContainer = document.querySelector(".menu");
     if (menuContainer) menuContainer.style.display = "none";

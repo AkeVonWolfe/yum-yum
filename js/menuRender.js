@@ -8,9 +8,9 @@ export let selectedItems = [];
 
 
 
-// render menu items 
+//render menu items 
 function renderMenu(items) {
-     // try slice instead of filter to render first 5 
+     //try slice instead of filter to render first 5 
        items.slice(0, 5).forEach((item) => { 
         const menuItem = document.createElement("button");
         menuItem.classList.add("menu-item");
@@ -88,37 +88,37 @@ function renderSubMenu(items) {
 
 
 
-// add event listeners to the menu items
+//add event listeners to the menu items
 menuContainer.addEventListener("click", addItemToOrder);
 document.querySelectorAll(".submenu-selections").forEach(subMenu => {
     subMenu.addEventListener("click", addItemToOrder);
 });
 
 
-// render selected items in the cart
+//render selected items in the cart
 function renderCartItems() {
     const cartContainer = document.querySelector("#cart-container");
-    cartContainer.innerHTML = ""; // Clear previous cart items
+    cartContainer.innerHTML = "";  //mby remove this due to new nuke
 
     selectedItems.forEach((item) => {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
 
-        // Item Name
+        
         const nameElement = document.createElement("span");
         nameElement.classList.add("cart-item-name");
         nameElement.innerText = item.name;
 
-        // Price Display
+        
         const priceElement = document.createElement("span");
         priceElement.classList.add("cart-item-price");
         priceElement.innerText = `${(item.price * item.quantity).toFixed(2)} SEK`;
 
-        // Divider
+        
         const dottedDivider = document.createElement("div");
         dottedDivider.classList.add("cart-dots");
 
-        // Counter Container (placed below item name)
+        
         const counterContainer = document.createElement("div");
         counterContainer.classList.add("counter-container");
 
@@ -127,33 +127,33 @@ function renderCartItems() {
         minusButton.classList.add("counter-button", "minus");
 
         const quantityDisplay = document.createElement("span");
-        quantityDisplay.innerText = item.quantity; // Display current quantity
+        quantityDisplay.innerText = item.quantity;
         quantityDisplay.classList.add("quantity-display");
 
         const plusButton = document.createElement("button");
         plusButton.innerText = "+";
         plusButton.classList.add("counter-button", "plus");
 
-        // Append buttons to counter container
+        //append buttons to counter container
         counterContainer.appendChild(minusButton);
         counterContainer.appendChild(quantityDisplay);
         counterContainer.appendChild(plusButton);
 
-        // Append everything to cartItem
+        //append everything to cartItem
         cartItem.appendChild(nameElement);
         cartItem.appendChild(dottedDivider);
         cartItem.appendChild(priceElement);
-        cartItem.appendChild(counterContainer); // Counter placed last (below name)
+        cartItem.appendChild(counterContainer); 
 
-        // Append to cart container
+        //append to cart container
         cartContainer.appendChild(cartItem);
 
-        // Event Listeners for Counter Buttons
+        //event listeners for counter buttons
         minusButton.addEventListener("click", () => {
             if (item.quantity > 1) {
                 item.quantity--;
             } else {
-                // Remove the item if quantity is 0
+                
                 const index = selectedItems.findIndex((i) => i.id === item.id);
                 selectedItems.splice(index, 1);
             }
@@ -175,13 +175,13 @@ function renderCartItems() {
 
 
 
-// Update total price display
+//update total price display
 function updateTotalPrice() {
     const totalPriceElement = document.querySelector(".total-price");
     const total = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     totalPriceElement.innerText = `${total} SEK`;
 
-    // Update button state
+    //update button state
     const moneyButton = document.querySelector(".money-button");
     if (total > 0) {
         moneyButton.disabled = false;
@@ -192,23 +192,23 @@ function updateTotalPrice() {
     }
 }
 
-// update cart when items are added
+//update cart when items are added
 function addItemToOrder(event) {
     const button = event.target.closest("button");
     if (button) {
         const itemId = button.getAttribute("data-id");
-        const itemPrice = parseFloat(button.getAttribute("data-price")); // Convert to number
+        const itemPrice = parseFloat(button.getAttribute("data-price")); 
         const itemName = button.querySelector(".item-name") 
-            ? button.querySelector(".item-name").innerText  // Check if item name is nested
+            ? button.querySelector(".item-name").innerText  
             : button.innerText; 
 
-        // Check if the item already exists in the cart 
+        //check if the item already exists in the cart 
         const existingItem = selectedItems.find((item) => item.id === itemId);
 
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            // new item with quantity initialized to 1
+            //new item with quantity initialized to 1
             const item = {
                 id: itemId,
                 name: itemName,
@@ -221,11 +221,11 @@ function addItemToOrder(event) {
         console.log("Item added:", itemName);
         console.log("Current cart:", selectedItems);
         updateCounter();
-        renderCartItems(); // Update cart display with new item
+        renderCartItems(); //update cart display with new item
     }
-    return selectedItems; // Return the updated selectedItems array to use in api
+    return selectedItems; //return the updated selectedItems array to use in api
 }
-// update the counter when items are added to the cart // mabye put this in updateTotalPrice
+//update the counter when items are added to the cart // mabye put this in updateTotalPrice
 function updateCounter() {
     const totalcounter = document.querySelector(".total-counter");
     if (selectedItems.length > 0) {
@@ -240,7 +240,7 @@ function updateCounter() {
 
 
 
-// fetch menu items from the API, checks the type of menu item
+//fetch menu items from the API, checks the type of menu item
 function fetchMenuItems(type) {
     const Url = `https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu?type=${type}`;
     return entireMenu(Url)
@@ -252,16 +252,16 @@ function fetchMenuItems(type) {
             } else {
                 console.log("404");
             }
-            return items; // Return items to chain promises
+            return items; //return items to chain promises
         })
         .catch(error => {
             console.error(`Error fetching ${type} menu:`, error);
-            throw error; //  error handling chain
+            throw error; //error handling chain
         });
 }
 
 
-//  load the menu items when the page loads
+//load the menu items when the page loads
 function loadMenu() {
     fetchMenuItems(wonton)
         .then(() => fetchMenuItems(drink))
