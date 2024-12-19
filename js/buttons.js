@@ -14,12 +14,13 @@ const cartReturnButton = document.querySelector('.cart-return-button')
 cartButton.addEventListener('click', function(){
     hideMenu()
     showOrder()
-})
+    document.body.style.backgroundColor = "#f1f0ec"; // change white/gray
 
+})
+//  money button to place the order, also need to call the api to post the order
 moneyButton.addEventListener("click", async function () {
     try {
         // Get selectedItems from menuRender
-        // You'll need to import selectedItems or pass it through a function
         const orderResponse = await menuOrdersPost(selectedItems);
         
         console.log("Order successfully placed:", orderResponse);
@@ -27,40 +28,78 @@ moneyButton.addEventListener("click", async function () {
         // Hide cart and show ETA section
         hideOrder();
         showCooking();
+        document.body.style.backgroundColor = "#605858"; // change darkgray
 
         // Show order confirmation on the ETA page
+        const orderid = orderResponse.order.id;
         const orderIdElement = document.querySelector(".order-id");
-        orderIdElement.innerText = `Order ID: ${orderResponse.orderId}`;
+        orderIdElement.innerText = `Order ID: ${orderid}`;
+
+        // Calculate time left until order is ready
+        const Responsetime = new Date(orderResponse.order.eta);
+        const currentTime = new Date();
+        const timeDifference = Math.max(0, Responsetime - currentTime);
+        const minutesLeft = Math.ceil(timeDifference / (1000 * 60));
 
         const timeEstimateElement = document.querySelector(".time-left");
-        timeEstimateElement.innerText = `ETA: ${orderResponse.eta} minutes`;
+        timeEstimateElement.innerText = `ETA: ${minutesLeft} minutes`;
 
-        // Green button feedback
-        moneyButton.style.backgroundColor = "green";
-        moneyButton.innerText = "BESTÄLLNING MOTTAGEN!";
+
     } catch (error) {
         console.error("Failed to place order:", error);
     }
 });
-
+// go to menu from cart
 cartReturnButton.addEventListener('click', function(){
     hideOrder()
     showMenu()
+    document.body.style.backgroundColor = "#489078"; // change green
+    // need a reset/clear function for the cart
 })
-
+// go to menu from cooking
 restartbutton.addEventListener('click', function(){
     hideCooking()
     showMenu()
+    resetOrder();
+    document.body.style.backgroundColor = "#489078" // change green
 })
 
-moneyButton.addEventListener('click', function(){
-    hideOrder()
-    showCooking()
+
+// nuke everthing  // mby move this to another file
+function resetOrder() {
+    // Clear the selectedItems array
+    selectedItems.length = 0;
     
-})
+    // Reset the cart counter
+    const totalCounter = document.querySelector(".total-counter");
+    totalCounter.style.display = "none";
+    totalCounter.innerText = "0";
+    
+    // Reset the cart display
+    const cartContainer = document.querySelector("#cart-container");
+    cartContainer.innerHTML = "";
+    
+    // Reset the total price
+    const totalPriceElement = document.querySelector(".total-price");
+    totalPriceElement.innerText = "0 SEK";
+    
+    // Reset the money button
+    const moneyButton = document.querySelector(".money-button");
+    moneyButton.disabled = true;
+    moneyButton.innerText = "VARUKORGEN ÄR TOM!";
+    moneyButton.style.backgroundColor = "#353131";
+    
+    // Reset the order ID and time display
+    const orderIdElement = document.querySelector(".order-id");
+    const timeEstimateElement = document.querySelector(".time-left");
+    orderIdElement.innerText = "";
+    timeEstimateElement.innerText = "";
+}
+ // go to cooking from cart
+
 /* openReceiptButton.addEventListener('click', function() {
     receiptDialog.show()
-    // need to call api for order with loreKeeper storing orders
+    // need to call api to get the receipt
 }) */
 
 

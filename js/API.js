@@ -49,7 +49,7 @@ async function entireMenu() {
 }
 entireMenu()
 
-
+// post order 
 function menuOrdersPost(addItemToOrder) {
   const orderData = {items: addItemToOrder
           .flatMap((item) => Array(item.quantity)

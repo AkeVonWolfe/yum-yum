@@ -7,23 +7,11 @@ const dip = "dip";
 export let selectedItems = [];
 
 
-//get the menu items from the API 
-async function fetchMenuItems(type) {
-	const Url = `https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu?type=${type}`;
-	const items = await entireMenu(Url);
 
-	if (type == wonton && items.length > 0) {
-		renderMenu(items);
-	} else if ((type == drink || type === dip) && items.length > 0) {
-		renderSubMenu(items);
-	} else {
-		console.log("404");
-	}
-}
-
-// render menu items
+// render menu items 
 function renderMenu(items) {
-       items.slice(0, 5).forEach((item) => {
+     // try slice instead of filter to render first 5 
+       items.slice(0, 5).forEach((item) => { 
         const menuItem = document.createElement("button");
         menuItem.classList.add("menu-item");
         menuItem.setAttribute("data-price", item.price);
@@ -37,7 +25,7 @@ function renderMenu(items) {
         nameElement.innerText = item.name;
 
         const dottedDivider = document.createElement("div");
-        dottedDivider.classList.add("dotted-divider");
+        dottedDivider.classList.add("dots");
 
         const priceElement = document.createElement("span");
         priceElement.innerText = `${item.price} SEK`;
@@ -128,7 +116,7 @@ function renderCartItems() {
 
         // Divider
         const dottedDivider = document.createElement("div");
-        dottedDivider.classList.add("dotted-divider");
+        dottedDivider.classList.add("cart-dots");
 
         // Counter Container (placed below item name)
         const counterContainer = document.createElement("div");
@@ -171,12 +159,14 @@ function renderCartItems() {
             }
             renderCartItems();
             updateTotalPrice();
+            updateCounter();
         });
 
         plusButton.addEventListener("click", () => {
             item.quantity++;
             renderCartItems();
             updateTotalPrice();
+            updateCounter();
         });
     });
 
@@ -184,6 +174,8 @@ function renderCartItems() {
 }
 
 
+
+// Update total price display
 function updateTotalPrice() {
     const totalPriceElement = document.querySelector(".total-price");
     const total = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -207,36 +199,69 @@ function addItemToOrder(event) {
         const itemId = button.getAttribute("data-id");
         const itemPrice = parseFloat(button.getAttribute("data-price")); // Convert to number
         const itemName = button.querySelector(".item-name") 
-            ? button.querySelector(".item-name").innerText 
-            : button.innerText;
+            ? button.querySelector(".item-name").innerText  // Check if item name is nested
+            : button.innerText; 
 
-        // Check if the item already exists in the cart
+        // Check if the item already exists in the cart 
         const existingItem = selectedItems.find((item) => item.id === itemId);
 
         if (existingItem) {
             existingItem.quantity++;
         } else {
-            // Add new item with quantity initialized to 1
+            // new item with quantity initialized to 1
             const item = {
                 id: itemId,
                 name: itemName,
                 price: itemPrice,
-                quantity: 1, // Initialize quantity
+                quantity: 1,
             };
             selectedItems.push(item);
         }
 
         console.log("Item added:", itemName);
         console.log("Current cart:", selectedItems);
-        renderCartItems(); // Update cart display
+        updateCounter();
+        renderCartItems(); // Update cart display with new item
     }
-    return selectedItems; // Return the updated selectedItems array
+    return selectedItems; // Return the updated selectedItems array to use in api
+}
+// update the counter when items are added to the cart // mabye put this in updateTotalPrice
+function updateCounter() {
+    const totalcounter = document.querySelector(".total-counter");
+    if (selectedItems.length > 0) {
+        totalcounter.style.display = "flex";
+        // Calculate total quantity of all items
+        const totalQuantity = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+        totalcounter.innerText = totalQuantity;
+    } else {
+        totalcounter.style.display = "none";
+    }
 }
 
 
 
+// fetch menu items from the API, checks the type of menu item
+function fetchMenuItems(type) {
+    const Url = `https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu?type=${type}`;
+    return entireMenu(Url)
+        .then(items => {
+            if (type == wonton && items.length > 0) {
+                renderMenu(items);
+            } else if ((type == drink || type === dip) && items.length > 0) {
+                renderSubMenu(items);
+            } else {
+                console.log("404");
+            }
+            return items; // Return items to chain promises
+        })
+        .catch(error => {
+            console.error(`Error fetching ${type} menu:`, error);
+            throw error; //  error handling chain
+        });
+}
 
-//  load the menu items
+
+//  load the menu items when the page loads
 function loadMenu() {
     fetchMenuItems(wonton)
         .then(() => fetchMenuItems(drink))
@@ -244,5 +269,4 @@ function loadMenu() {
         .catch((error) => console.error(error));
 }
 loadMenu();
-
 

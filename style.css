@@ -17,10 +17,6 @@ body{
 }
 
 
-.total-items.display-none{
-	display: none;
-}
-
 .hide{
 	display: none;
 }
@@ -46,7 +42,7 @@ body{
 	width: 4rem;
 	border: none;
 	margin-top: 1rem;
-	margin-right: 1rem;
+	margin-right: 0.45rem;
 	border-radius: 0.4rem;
 	background-color: white;
 	position: relative;
@@ -55,8 +51,8 @@ body{
 }
 
 
-.total-items{
-	background-color: white;
+.total-counter{
+	background-color: red;
 	color: white;
 	font-size: 0.8rem;
 	border-radius: 100%;
@@ -82,9 +78,7 @@ body{
 	margin-bottom: 1rem;
 	background-color: #605858;
 }
-#cart{
-	background-color: white;
-}
+
 
 .menu-item , .cart-item{
 	color: white;
@@ -98,7 +92,7 @@ body{
 	cursor: pointer;
 }
 
-.menu-item:hover, .submenu-item:hover, .money-button:hover{
+.menu-item:hover, .submenu-item:hover{
 	background-color: #353131;
 }
 
@@ -130,12 +124,12 @@ body{
 	font-size: 14px;
 }
 
-.dotted-divider{
+.dots{
 	border-bottom: dotted 2px white;
 	flex-grow: 1;
 }
 
-.submenu-item , .cart-item{
+.submenu-item {
 	border: none;
 	color: white;
 	background-color: #898383;
@@ -192,6 +186,14 @@ body{
     font-weight: bold;
     color: white;
 }
+.cart-item-name, .cart-item-price, .quantity-display{
+	color : black;
+}
+.cart-dots{
+	border-bottom: dotted 2px black;
+	flex-grow: 1;
+}
+
 .cart-return-button{
 	background: none;
 	border: 0;
@@ -199,7 +201,6 @@ body{
 	margin-right: 1rem;
 	height: 4rem;
 	width: 4rem;
-	border: 2px solid darkgray;
 	border-radius: 0.5rem;
 	cursor: pointer;
 }
@@ -244,7 +245,7 @@ body{
 }
 
 .money-button {
-	background-color: darkgray;
+	background-color: #353131;
     border: none;
     border-radius: 0.5rem;
     font-size: 1.5rem;
@@ -263,7 +264,6 @@ body{
 
 
 #eta{
-	background-color: lightgray;
   	flex-direction: column;
   	padding: 1rem;
   	align-items: center;
@@ -301,7 +301,7 @@ body{
 }
 
 .eta-buttons{
-	background-color: darkgray;
+	background-color: black;
 	border: none;
 	border-radius: 0.3rem;
 	font-size: 1.5rem;
@@ -312,7 +312,7 @@ body{
 }
 
 .eta-buttons.receipt{
-	background-color: lightgray;
+	background-color: #605858;
 	border: 2px solid white;
 	color: white;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.911);
