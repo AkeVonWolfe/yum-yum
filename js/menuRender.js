@@ -1,4 +1,4 @@
-import { entireMenu, menuOrdersPost } from "./API.js";
+import { entireMenu, menuOrdersPost, getReceipt } from "./API.js";
 
 const menuContainer = document.querySelector("#menu-container");
 const wonton = "wonton";
@@ -237,8 +237,58 @@ function updateCounter() {
         totalcounter.style.display = "none";
     }
 }
+function handleReceipt(data) {
+    if (!data || !data.order || !data.order.id) {
+        console.error("Invalid order data. Cannot fetch receipt.");
+        return;
+    }
 
+    getReceipt(data)
+        .then(receiptArray => {
+            if (receiptArray && receiptArray.receipt.items) {
+                const receiptContainer = document.querySelector(".receipt-inner");
+                receiptContainer.innerHTML = "";
 
+                receiptArray.receipt.items.forEach((item) => {
+                    const receiptItem = document.createElement("div");
+                    receiptItem.classList.add("receipt-item");
+
+                    const receiptItemInner = document.createElement("div");
+                    receiptItemInner.classList.add("receipt-item-inner");
+
+                    const receiptItemName = document.createElement("p");
+                    receiptItemName.innerText = item.name;
+
+                    const receiptDivider = document.createElement("div");
+                    receiptDivider.classList.add("dotted-divider-receipt");
+
+                    const receiptItemPrice = document.createElement("p");
+                    receiptItemPrice.innerText = `${item.price} SEK`;
+
+                    receiptItemInner.appendChild(receiptItemName);
+                    receiptItemInner.appendChild(receiptDivider);
+                    receiptItemInner.appendChild(receiptItemPrice);
+
+                    const receiptAmount = document.createElement("p");
+                    receiptAmount.classList.add("receipt-amount");
+                    receiptAmount.innerText = `${item.quantity} stycken`;
+
+                    receiptItem.appendChild(receiptItemInner);
+                    receiptItem.appendChild(receiptAmount);
+
+                    receiptContainer.appendChild(receiptItem);
+                });
+
+                const receiptTotal = document.querySelector(".receipt-total");
+                receiptTotal.innerText = `${receiptArray.receipt.orderValue} SEK`;
+            } else {
+                console.error("No items found");
+            }
+        })
+        .catch(error => {
+            console.error(error.message);
+        });
+}
 
 //fetch menu items from the API, checks the type of menu item
 function fetchMenuItems(type) {
@@ -270,3 +320,4 @@ function loadMenu() {
 }
 loadMenu();
 
+export {handleReceipt}

@@ -30,5 +30,14 @@ function showCooking(){
     if (etaContainer) etaContainer.style.display = "block";
     }
 
+function hideReceipt(){
+    let receiptContainer = document.querySelector("#receipt-section");
+    if (receiptContainer) receiptContainer.style.display = "none";
+}
+function showReceipt(){
+    let receiptContainer = document.querySelector("#receipt-section");
+    if (receiptContainer) receiptContainer.style.display = "block";
+}
 
-export {hideMenu, showMenu, hideOrder , showOrder , hideCooking, showCooking}
+export {hideMenu, showMenu, hideOrder , showOrder , hideCooking, showCooking ,
+     hideReceipt, showReceipt,}; 

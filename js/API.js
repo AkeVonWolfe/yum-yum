@@ -84,9 +84,43 @@ function menuOrdersPost(addItemToOrder) {
     });
 }
 
+function getReceipt(data) {
+  if (!data || !data.order || !data.order.id) {
+    throw new Error("Invalid data provided. Missing order ID.");
+  }
+  const orderId = data.order.id;
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-zocom": apiKey,
+    },
+  };
+
+  return fetch(`${url}/receipts/${orderId}`, options)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP Error ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((receiptData) => {
+      return receiptData;
+    })
+    .catch((error) => {
+      console.error(error.message);
+      throw error;
+    });
+}
 
 
-export{ entireMenu, menuOrdersPost}
+
+
+
+
+
+export{ entireMenu, menuOrdersPost, getReceipt}
+
 
 
 

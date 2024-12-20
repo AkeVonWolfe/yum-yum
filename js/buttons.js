@@ -1,15 +1,17 @@
 import { showCooking, hideCooking, showOrder, hideOrder,
-     hideMenu, showMenu} from "./hide.js"
- import { menuOrdersPost } from "./API.js" 
- import { selectedItems } from "./menuRender.js"
+     hideMenu, showMenu, showReceipt, hideReceipt} from "./hide.js"
+ import { menuOrdersPost  } from "./API.js" 
+ import { selectedItems, handleReceipt } from "./menuRender.js"
 
 const menuItems = document.querySelectorAll('.menu-item')
 const cartButton = document.querySelector('.cart-button')
 const moneyButton = document.querySelector('.money-button')
-const receiptDialog = document.querySelector('.receipt-dialog')
-const openReceiptButton = document.querySelector('.open-receipt-button')
+const openReceiptButton = document.querySelector('.receipt')
 const restartbutton = document.querySelector('.return-button')
 const cartReturnButton = document.querySelector('.cart-return-button')
+const receiptResetButton = document.querySelector('.receipt-new-order')
+
+let currentOrderData = null;
 
 cartButton.addEventListener('click', function(){
     hideMenu()
@@ -18,36 +20,34 @@ cartButton.addEventListener('click', function(){
 
 })
 // money button to place the order, also need to call the api to post the order
-moneyButton.addEventListener("click", async function () {
-    try {
-        //get selectedItems from menuRender
-        const orderResponse = await menuOrdersPost(selectedItems);
-        
-        console.log("Order successfully placed:", orderResponse);
+moneyButton.addEventListener("click", function () {
+    menuOrdersPost(selectedItems)
+        .then(orderResponse => {
+            console.log("Order successfully placed:", orderResponse);
+            currentOrderData = orderResponse;
 
-        //hide cart and show eta section
-        hideOrder();
-        showCooking();
-        document.body.style.backgroundColor = "#605858"; // change darkgray
+            //hide cart and show eta section
+            hideOrder();
+            showCooking();
+            document.body.style.backgroundColor = "#605858"; // change darkgray
 
-        //show order confirmation on the eta page
-        const orderid = orderResponse.order.id;
-        const orderIdElement = document.querySelector(".order-id");
-        orderIdElement.innerText = `Order ID: ${orderid}`;
+            //show order confirmation on the eta page
+            const orderid = orderResponse.order.id;
+            const orderIdElement = document.querySelector(".order-id");
+            orderIdElement.innerText = `Order ID: ${orderid}`;
 
-        //calculate time left until order is ready
-        const Responsetime = new Date(orderResponse.order.eta);
-        const currentTime = new Date();
-        const timeDifference = Math.max(0, Responsetime - currentTime);
-        const minutesLeft = Math.ceil(timeDifference / (1000 * 60));
+            //calculate time left until order is ready
+            const Responsetime = new Date(orderResponse.order.eta);
+            const currentTime = new Date();
+            const timeDifference = Math.max(0, Responsetime - currentTime);
+            const minutesLeft = Math.ceil(timeDifference / (1000 * 60));
 
-        const timeEstimateElement = document.querySelector(".time-left");
-        timeEstimateElement.innerText = `ETA: ${minutesLeft} minutes`;
-
-
-    } catch (error) {
-        console.error("Failed to place order:", error);
-    }
+            const timeEstimateElement = document.querySelector(".time-left");
+            timeEstimateElement.innerText = `ETA: ${minutesLeft} minutes`;
+        })
+        .catch(error => {
+            console.error("Failed to place order:", error);
+        });
 });
 //go to menu from cart
 cartReturnButton.addEventListener('click', function(){
@@ -59,6 +59,21 @@ cartReturnButton.addEventListener('click', function(){
 //go to menu from cooking
 restartbutton.addEventListener('click', function(){
     hideCooking()
+    showMenu()
+    resetOrder();
+    document.body.style.backgroundColor = "#489078" // change green
+})
+
+openReceiptButton.addEventListener('click', function(){
+    hideCooking()
+    showReceipt()
+    handleReceipt(currentOrderData)
+    document.body.style.backgroundColor = "#605858"; //change white/gray
+
+})
+
+receiptResetButton.addEventListener('click', function(){
+    hideReceipt()
     showMenu()
     resetOrder();
     document.body.style.backgroundColor = "#489078" // change green

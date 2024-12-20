@@ -340,7 +340,137 @@ body{
     letter-spacing: 1px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     margin: 0.5rem auto;
+    color: #ffffff;
+	
+	
+}
+
+#receipt-section {
+    background-color: #605858;
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    align-items: center;
     color: white;
-	
-	
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.receipt-container {
+    margin-top: 5rem;
+    background-color: white;
+    color: #353131;
+    display: flex;
+    flex-direction: column;
+    min-height: 30rem;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.3rem 0.3rem 0 0;
+    align-items: center;
+}
+
+.logo {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1rem;
+}
+
+.receipt-header {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.receipt-id {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: #353131;
+}
+
+.receipt-inner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+.receipt-item {
+    width: 100%;
+}
+
+.receipt-item-inner {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.receipt-item-inner > p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #353131;
+}
+
+.dotted-divider-receipt {
+    border-bottom: 2px dotted #353131;
+    flex-grow: 1;
+    height: 1.4rem;
+}
+
+.receipt-amount {
+    font-size: 1rem;
+    color: #353131;
+    margin-top: 0.2rem;
+}
+
+.receipt-total-container {
+    background-color: #eeeeee;
+    width: 100%;
+    border-radius: 0 0 0.3rem 0.3rem;
+    display: flex;
+    padding: 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.receipt-total-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.receipt-total-text {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #353131;
+}
+
+.receipt-total-inner > p:last-child {
+    font-size: 0.9rem;
+    color: #605858;
+}
+
+.receipt-total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #353131;
+}
+
+.receipt-new-order {
+    background-color: #353131;
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #eeeeee;
+    padding: 1.5rem;
+    width: 100%;
+    margin-top: auto;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.receipt-new-order:hover {
+    background-color: #2a2727;
 }
