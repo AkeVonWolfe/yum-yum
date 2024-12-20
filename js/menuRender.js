@@ -98,27 +98,32 @@ document.querySelectorAll(".submenu-selections").forEach(subMenu => {
 //render selected items in the cart
 function renderCartItems() {
     const cartContainer = document.querySelector("#cart-container");
-    cartContainer.innerHTML = "";  //mby remove this due to new nuke
+    cartContainer.innerHTML = "";
 
     selectedItems.forEach((item) => {
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
 
+        // Create inner container for name, dots, and price
+        const cartItemInner = document.createElement("div");
+        cartItemInner.classList.add("cart-item-inner");
         
         const nameElement = document.createElement("span");
         nameElement.classList.add("cart-item-name");
         nameElement.innerText = item.name;
-
+        
+        const dottedDivider = document.createElement("div");
+        dottedDivider.classList.add("cart-dots");
         
         const priceElement = document.createElement("span");
         priceElement.classList.add("cart-item-price");
         priceElement.innerText = `${(item.price * item.quantity).toFixed(2)} SEK`;
-
         
-        const dottedDivider = document.createElement("div");
-        dottedDivider.classList.add("cart-dots");
+        cartItemInner.appendChild(nameElement);
+        cartItemInner.appendChild(dottedDivider);
+        cartItemInner.appendChild(priceElement);
 
-        
+        // Create counter container
         const counterContainer = document.createElement("div");
         counterContainer.classList.add("counter-container");
 
@@ -127,33 +132,28 @@ function renderCartItems() {
         minusButton.classList.add("counter-button", "minus");
 
         const quantityDisplay = document.createElement("span");
-        quantityDisplay.innerText = item.quantity;
+        quantityDisplay.innerText = `${item.quantity} stycken`;
         quantityDisplay.classList.add("quantity-display");
 
         const plusButton = document.createElement("button");
         plusButton.innerText = "+";
         plusButton.classList.add("counter-button", "plus");
 
-        //append buttons to counter container
         counterContainer.appendChild(minusButton);
         counterContainer.appendChild(quantityDisplay);
         counterContainer.appendChild(plusButton);
 
-        //append everything to cartItem
-        cartItem.appendChild(nameElement);
-        cartItem.appendChild(dottedDivider);
-        cartItem.appendChild(priceElement);
-        cartItem.appendChild(counterContainer); 
-
-        //append to cart container
+        //append both containers to cart item
+        cartItem.appendChild(cartItemInner);
+        cartItem.appendChild(counterContainer);
+        
         cartContainer.appendChild(cartItem);
 
-        //event listeners for counter buttons
+        //event listeners remain the same
         minusButton.addEventListener("click", () => {
             if (item.quantity > 1) {
                 item.quantity--;
             } else {
-                
                 const index = selectedItems.findIndex((i) => i.id === item.id);
                 selectedItems.splice(index, 1);
             }
@@ -172,6 +172,7 @@ function renderCartItems() {
 
     updateTotalPrice();
 }
+
 
 
 
