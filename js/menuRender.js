@@ -5,7 +5,8 @@ const wonton = "wonton";
 const drink = "drink";
 const dip = "dip";
 export let selectedItems = [];
-
+const wontonEta = document.querySelector('.wonton-eta');
+wontonEta.innerHTML = 'DINA WONTON<br>TILLAGAS!';
 
 
 //render menu items 

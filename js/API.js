@@ -1,5 +1,3 @@
-
-
 const apiKey = 'yum-ngfeNG1iaq9Q2PJK'
 
 const url = 'https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com'
