@@ -238,7 +238,7 @@ function updateCounter() {
         totalcounter.style.display = "none";
     }
 }
-function handleReceipt(data) {
+function renderReceipt(data) {
     if (!data || !data.order || !data.order.id) {
         console.error("Invalid order data. Cannot fetch receipt.");
         return;
@@ -321,4 +321,4 @@ function loadMenu() {
 }
 loadMenu();
 
-export {handleReceipt}
+export {renderReceipt}

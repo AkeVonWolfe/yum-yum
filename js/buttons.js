@@ -1,7 +1,7 @@
 import { showCooking, hideCooking, showOrder, hideOrder,
      hideMenu, showMenu, showReceipt, hideReceipt} from "./hide.js"
  import { menuOrdersPost  } from "./API.js" 
- import { selectedItems, handleReceipt } from "./menuRender.js"
+ import { selectedItems, renderReceipt } from "./menuRender.js"
 
 const menuItems = document.querySelectorAll('.menu-item')
 const cartButton = document.querySelector('.cart-button')
@@ -67,7 +67,7 @@ restartbutton.addEventListener('click', function(){
 openReceiptButton.addEventListener('click', function(){
     hideCooking()
     showReceipt()
-    handleReceipt(currentOrderData)
+    renderReceipt(currentOrderData)
     document.body.style.backgroundColor = "#605858"; //change white/gray
 
 })
